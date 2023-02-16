@@ -46,3 +46,37 @@ A classic example to avoid is pulling in the Apache Commons Lang3 library only t
 
 ## Shaded Components
 Creation of shaded components is forbidden - a well designed library should never embed 3rd party content inside itself. The primary reasons are that this can introduce runtime side-effects (it in effect allows parallel copies of different versions of the same component to coexist) and it makes patching security issues very difficult. In general, even introducing dependencies that themselves are or depend on shaded artifacts should be avoided as much as possible.
+
+## Bootstrap Sequence
+Should a complete rebuild from source be required, the following is the preferred rebuild sequence. Some of it is arbitrary (assuming a seial build sequence) but a number of components build on the others and so have to be built first.
+
+1. io.github.locke-chappel.oss:parent
+1. io.github.locke-chappel.oss:owasp
+1. io.github.locke-chappel.oss.commons:bom
+1. io.github.locke-chappel.oss.app:parent
+1. io.github.locke-chappel.oss.commons:parent
+1. io.github.locke-chappel.oss.commons:testing
+1. io.github.locke-chappel.oss.commons:util
+1. io.github.locke-chappel.oss.commons:serialization
+1. io.github.locke-chappel.oss.commons:encoding
+1. io.github.locke-chappel.oss.commons:hashing
+1. io.github.locke-chappel.oss.commons:api.identity
+1. io.github.locke-chappel.oss.commons:api.logging
+1. io.github.locke-chappel.oss.commons:api.services
+1. io.github.locke-chappel.oss.commons:l10n
+1. io.github.locke-chappel.oss.commons:signing
+1. io.github.locke-chappel.oss.commons:jwt
+1. io.github.locke-chappel.oss.commons:encryption
+1. io.github.locke-chappel.oss.commons:encryption.config
+1. io.github.locke-chappel.oss.commons:email
+1. io.github.locke-chappel.oss.commons:google.auth
+1. io.github.locke-chappel.oss.commons:jpa
+1. io.github.locke-chappel.oss.commons:services
+1. io.github.locke-chappel.oss.commons:raspberrypi
+1. io.github.locke-chappel.oss.commons:ssh
+1. io.github.locke-chappel.oss.commons:validation
+1. io.github.locke-chappel.oss.commons:identity
+1. io.github.locke-chappel.oss.commons:web.resources
+1. io.github.locke-chappel.oss.commons:web
+1. io.github.locke-chappel.oss.commons:testing.web
+1. io.github.locke-chappel.oss.commons:javafx
